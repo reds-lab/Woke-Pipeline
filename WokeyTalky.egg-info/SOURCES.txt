@@ -1,0 +1,9 @@
+LICENSE
+README.md
+pyproject.toml
+WokeyTalky.egg-info/PKG-INFO
+WokeyTalky.egg-info/SOURCES.txt
+WokeyTalky.egg-info/dependency_links.txt
+WokeyTalky.egg-info/top_level.txt
+WokeyTalky/classes/woke_pipeline_class.py
+tests/test_woke_pipeline.py
