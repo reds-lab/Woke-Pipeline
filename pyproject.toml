@@ -1,12 +1,12 @@
 [project]
 name = "WokeyTalky"
-version = "0.1"
+version = "0.1.1"
 authors = [
   { name="Adam Nguyen", email="Adanato@vt.edu" },
 ]
-description = "A small example package"
+description = "A scalable and dynamic pipeline set for generation of spurious features."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",

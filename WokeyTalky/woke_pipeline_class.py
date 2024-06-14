@@ -61,4 +61,26 @@ class WokePipeline:
 
         return pipeline_dict
 
-    def create_woke_data(input_dict, pipeline_dict=None, generation_model="gpt-4-turbo"):
+    def create_woke_data(input_dict, pipeline_dict=None, generation_template="",generation_model="gpt-4-turbo"):
+        if generation_template=="":
+            generation_template = load_woke_template(woke_template_file_name)
+
+        
+        for model in pipeline_dict.keys():
+            templated_qa_pairs = []
+            for object in pipeline_dict[model]:
+                templated_qa = generation_template %  object["qa_pair"]
+                templated_qa_pairs.append(templated_qa)
+            
+            from gpt_batch.batcher import GPTBatcher
+
+            # Initialize the batcher
+            batcher = GPTBatcher(api_key=os.getenv("OPENAI_API_KEY"), model_name='gpt-4-turbo')
+
+            # Send a list of messages and receive answers
+            judge_results = batcher.handle_message_list(templated_qa_pairs)
+            
+            #Merge the dict
+            pipeline_dict[model] = [dict(object, judge_result=judge_result) for object, judge_result in zip(pipeline_dict[model], judge_results)]
+        
+        return pipeline_dict

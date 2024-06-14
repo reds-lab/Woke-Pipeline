@@ -5,7 +5,6 @@ WokeyTalky/__init__.py
 WokeyTalky/feedforward.py
 WokeyTalky/gpt_judge.py
 WokeyTalky/prompt_loss.py
-WokeyTalky/woke_generation.py
 WokeyTalky/woke_pipeline_class.py
 WokeyTalky.egg-info/PKG-INFO
 WokeyTalky.egg-info/SOURCES.txt
