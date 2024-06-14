@@ -32,3 +32,9 @@ def load_dataset_category_dict(dataset_file_path):
             return dict[filename_without_extension]
     else:
         return ""
+def load_woke_template(file_path="../configs/woke_templates.json", name="woke-template-v1"):
+
+    with open(file_path, "r") as file:
+        templates = json.load(file)
+
+    return templates[name]
