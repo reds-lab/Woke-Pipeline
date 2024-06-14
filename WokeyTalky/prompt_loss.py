@@ -7,10 +7,9 @@ import numpy as np
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from tqdm import tqdm
-from utils.prompt_util import find_prompt_template
-from utils.util import setup_env
-from utils.config_util import load_models_dict_json
-import argparse
+from WokeyTalky.utils.prompt_util import find_prompt_template
+
+from WokeyTalky.utils.config_util import load_models_dict_json
 from accelerate import Accelerator
 
 def load_model_and_tokenizer_loss_compute(model_id, accelerator):
@@ -40,14 +39,12 @@ def loss_compute(input_ids, model, labels):
 
 
 def top_rejected_prompts(model_name, judged_objects, num_of_additional_questions):
-    model_dict = load_models_dict_json()
-    
-    
+
     rejected_indices = [ index for index, object in enumerate(judged_objects) if object["judge_result"] == 0]
 
     accelerator = Accelerator()
     model, tokenizer = load_model_and_tokenizer_loss_compute(
-        model_dict[model_name], accelerator)
+        model_name, accelerator)
 
     # %%
     raw_model_questions = [object["qa_pair"][0] for object in judged_objects]
@@ -69,8 +66,6 @@ def top_rejected_prompts(model_name, judged_objects, num_of_additional_questions
         refusal_loss_record[idx] = loss_compute(
             input_ids, model, refusal_labels)
 
-    # refusal_loss_record_filename = f'{output_dir}/{model_name}.npy'
-    # np.save(refusal_loss_record_filename, refusal_loss_record)
 
     def first_k_words(paragraphs, k=4):
         outputs = []
