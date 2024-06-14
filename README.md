@@ -1,12 +1,12 @@
 ```
-# Package Name
+# WokeyTalky
 
-Short description of what your package does.
+Easy introduction to scalable 
 
 ## Installation
 
 ```bash
-pip install package-name
+pip install WokeyTalky
 ```
 
 ## Usage
@@ -14,10 +14,12 @@ pip install package-name
 Provide examples of how to use your package. Include code snippets if applicable.
 
 ```python
-import package_name
+import WokeyTalky.Woke_Pipeline import WokePipeline
 
 # Example of using your package
-result = package_logs.function_name(param1, param2)
+woke = WokePipeline()
+
+results = woke.generate(prompts, models)
 print(result)
 ```
 
@@ -41,11 +43,8 @@ Specify the license under which your package is released.
 
 ## Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/YourGitHub)
+- [Adam Nguyen](https://github.com/YourGitHub)
+- [Yi Zeng](https://github.com/YourGitHub)
 
 ## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc.
-```
+[Blank]
