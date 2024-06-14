@@ -43,19 +43,17 @@ def top_rejected_prompts(model_name, judged_objects, num_of_additional_questions
     model_dict = load_models_dict_json()
     
     
-    rejected_indices = []
-                        for object in enumerate(judged_objects) if object["judge_result"] == 0]
+    rejected_indices = [ index for index, object in enumerate(judged_objects) if object["judge_result"] == 0]
 
     accelerator = Accelerator()
     model, tokenizer = load_model_and_tokenizer_loss_compute(
         model_dict[model_name], accelerator)
 
     # %%
-    raw_model_questions = [line["raw_prompt"]
-                           for line in model_results]
+    raw_model_questions = [object["qa_pair"][0] for object in judged_objects]
     model_questions = find_prompt_template(
         raw_model_questions, model_name, tokenizer)
-    model_answers = [line["generated"] for line in model_results]
+    model_answers = [object["qa_pair"][1] for object in judged_objects]
 
     # %%
     refusal_loss_record = 1e6 * np.ones(len(model_questions))
@@ -153,18 +151,3 @@ def top_rejected_prompts(model_name, judged_objects, num_of_additional_questions
 
     return sorted_questions_and_losses
 
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Process model data and compute refusal loss.')
-    parser.add_argument('--model', type=str, required=True,
-                        help='Name of the model to use.')
-    parser.add_argument('--output_dir', type=str, default='../0_outputs',
-                        help='Output directory for the processed files.')
-    parser.add_argument('--judge_input_dir', type=str, default='../0_outputs',
-                        help='Output directory for the processed files.')
-    parser.add_argument('--generated_input_dir', type=str, default='../0_outputs',
-                        help='Output directory for the processed files.')
-    args = parser.parse_args()
-
-    main(args.model,args.judge_input_dir, args.generated_input_dir, args.output_dir)

@@ -3,6 +3,7 @@ import os
 
 from feedforward import feed_forward
 from utils.eval_util import load_prompt_format
+from prompt_loss import top_rejected_prompts
 
 class WokePipeline:
     def __init__(self, config_file="", seed=0):
@@ -51,6 +52,13 @@ class WokePipeline:
         """
             Incredibly time consuming. Optimization is a work in progress.
         """
+        if pipeline_dict == None:
+            raise ValueError("pipeline_dict needs to be inputted")
         
+        for model in pipeline_dict.keys():
+            top_k_rejected = top_rejected_prompts(model, pipeline_dict[model], top_k)
+            pipeline_dict[model] = dict(pipeline_dict[model], top_k_rejected = top_k_rejected)
 
-    def create_woke_data(input_dict, generation_model="gpt-4-turbo"):
+        return pipeline_dict
+
+    def create_woke_data(input_dict, pipeline_dict=None, generation_model="gpt-4-turbo"):

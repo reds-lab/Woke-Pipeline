@@ -1,15 +1,10 @@
 import json
-from tqdm import tqdm
-import time
-import os
-import openai
-from openai import ChatCompletion
 import re
 
 
 
 
-def load_prompt_format(filename="../../conf/judge_prompts.jsonl", name=""):
+def load_prompt_format(filename="../config/judge_prompts.jsonl", name=""):
     prompt_template = None
     output_format = None
     with open(filename, 'r') as file:
