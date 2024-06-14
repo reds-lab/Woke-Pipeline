@@ -63,7 +63,7 @@ class WokePipeline:
 
     def create_woke_data(input_dict, pipeline_dict=None, generation_template="",generation_model="gpt-4-turbo"):
         if generation_template=="":
-            generation_template = load_woke_template(woke_template_file_name)
+            generation_template = load_woke_template()
 
         
         for model in pipeline_dict.keys():

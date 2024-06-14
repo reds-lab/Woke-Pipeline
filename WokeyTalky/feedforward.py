@@ -16,7 +16,6 @@ import time
 import torch
 from tqdm import tqdm
 import json
-from .utils.models_util import load_model_and_tokenizer
 from .utils.config_util import load_models_dict_json,load_api_models,load_local_models_dict_json
 from vllm import LLM, SamplingParams
 from .utils.claude_generation import get_response_claude
