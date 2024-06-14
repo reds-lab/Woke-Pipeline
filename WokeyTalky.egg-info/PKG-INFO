@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: WokeyTalky
-Version: 0.1.1
+Version: 0.1.2
 Summary: A scalable and dynamic pipeline set for generation of spurious features.
 Author-email: Adam Nguyen <Adanato@vt.edu>
 Project-URL: Homepage, https://github.com/ruoxi-jia-group/Woke-Pipeline

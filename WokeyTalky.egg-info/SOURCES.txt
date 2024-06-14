@@ -1,11 +1,11 @@
 LICENSE
 README.md
 pyproject.toml
+WokeyTalky/Woke_Pipeline.py
 WokeyTalky/__init__.py
 WokeyTalky/feedforward.py
 WokeyTalky/gpt_judge.py
 WokeyTalky/prompt_loss.py
-WokeyTalky/woke_pipeline_class.py
 WokeyTalky.egg-info/PKG-INFO
 WokeyTalky.egg-info/SOURCES.txt
 WokeyTalky.egg-info/dependency_links.txt
@@ -14,7 +14,6 @@ WokeyTalky/utils/__init__.py
 WokeyTalky/utils/claude_generation.py
 WokeyTalky/utils/config_util.py
 WokeyTalky/utils/eval_util.py
-WokeyTalky/utils/file_util.py
 WokeyTalky/utils/gemini_generation.py
 WokeyTalky/utils/gpt_batch_request.py
 WokeyTalky/utils/gpt_generation.py

@@ -1,10 +1,10 @@
 # package_name/my_class.py
 import os
 
-from feedforward import feed_forward
-from utils.eval_util import load_prompt_format
-from prompt_loss import top_rejected_prompts
-from utils.config_util import load
+from .feedforward import feed_forward
+from .utils.eval_util import load_prompt_format
+from .prompt_loss import top_rejected_prompts
+from .utils.config_util import load_woke_template
 class WokePipeline:
     def __init__(self, config_file="", seed=0):
         self.seed = seed

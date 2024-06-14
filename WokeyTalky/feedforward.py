@@ -11,54 +11,23 @@ os.environ["HF_HUB_CACHE"] = os.path.join(os.environ["HF_HOME"], 'hub')
 os.environ["HF_ASSETS_CACHE"] = os.path.join(os.environ["HF_HOME"], 'assets')
 os.environ['HF_TOKEN'] = os.getenv('HUGGINGFACE_TOKEN')
 from transformers import AutoTokenizer
-import argparse
-from utils.prompt_util import apply_prompt_template, find_prompt_template, questions_prompt_template
+from .utils.prompt_util import find_prompt_template
 import time
 import torch
 from tqdm import tqdm
 import json
-from utils.models_util import load_model_and_tokenizer
-from utils.config_util import load_models_dict_json,load_api_models,load_local_models_dict_json
-from utils.file_util import find_file_processor
+from .utils.models_util import load_model_and_tokenizer
+from .utils.config_util import load_models_dict_json,load_api_models,load_local_models_dict_json
 from vllm import LLM, SamplingParams
-from utils.claude_generation import get_response_claude
-from utils.gemini_generation import get_response_gemini
-from utils.gpt_generation import get_response_gpt
+from .utils.claude_generation import get_response_claude
+from .utils.gemini_generation import get_response_gemini
+from .utils.gpt_generation import get_response_gpt
 model_dict = load_models_dict_json()
 api_models_list = load_api_models()
 local_model_dict = load_local_models_dict_json()
 
 
-# def save_response(model_name, model_id, prompt, response, output_dir):
-#     # answer_file = os.path.join(output_dir, f"{model_name}_generated_output.json")
-#     # os.makedirs(os.path.dirname(answer_file), exist_ok=True)
-    
-#     ans_json = {
-#         "raw_prompt": prompt,
-#         "model_id": model_id,
-#         "generated": response,
-#     }
-    
-#     with open(os.path.expanduser(answer_file), "a") as fout:
-#         fout.write(json.dumps(ans_json, ensure_ascii=False) + "\n")
-
-def feed_forward(model_name, prompts, output_dir):
-    
-
-    # answer_file = os.path.join(output_dir, f"{model_name}_generated_output.json")
-    # os.makedirs(os.path.dirname(answer_file), exist_ok=True)
-
-    # existing_prompts = set()
-
-    # # Load existing prompts from the file if it exists
-    # if os.path.exists(os.path.expanduser(answer_file)):
-    #     with open(os.path.expanduser(answer_file), "r") as fin:
-    #         for line in fin:
-    #             ans_json = json.loads(line)
-    #             existing_prompts.add(ans_json["raw_prompt"])
-
-    # Filter new prompts based on existing prompts
-    # prompts = [prompt for prompt in prompts if prompt not in existing_prompts]
+def feed_forward(model_name, prompts):
 
     responses = []
     model_name = model_name.lower().strip()
