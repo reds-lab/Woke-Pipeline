@@ -1,4 +1,14 @@
 import json
+import os
+
+print("Current Working Directory:", os.getcwd())
+import os
+
+config_path = "../configs"
+if not os.path.exists(config_path):
+    print("The path does not exist:", config_path)
+else:
+    print("The path exists:", config_path)
 
 def load_api_models(filename="../configs/api_models_list.json"):
     # Load the JSON data from supported api models json

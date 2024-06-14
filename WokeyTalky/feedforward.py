@@ -19,7 +19,7 @@ import json
 from .utils.config_util import load_models_dict_json,load_api_models,load_local_models_dict_json
 from vllm import LLM, SamplingParams
 from .utils.claude_generation import get_response_claude
-from .utils.gemini_generation import get_response_gemini
+# from .utils.gemini_generation import get_response_gemini
 from .utils.gpt_generation import get_response_gpt
 model_dict = load_models_dict_json()
 api_models_list = load_api_models()
@@ -69,8 +69,8 @@ def feed_forward(model_name, prompts):
                         response = get_response_claude(prompt, model_name)
                     elif "gpt" in model_name:
                         response = get_response_gpt(prompt, model_name)
-                    elif "gemini" in model_name:
-                        response = get_response_gemini(prompt, model_name)
+                    # elif "gemini" in model_name:
+                        # response = get_response_gemini(prompt, model_name)
                     
                     responses.append(response)
                     # save_response(model_name, model_id, prompt, response, output_dir)
