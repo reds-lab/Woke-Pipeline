@@ -86,6 +86,7 @@ def feed_forward(model_name, prompts, output_dir):
         vllm_outputs = vllm_model.generate(dialogs, sampling_params)
     
         responses = [output.outputs[0].text.strip() for output in vllm_outputs]
+        
         del vllm_model
         del tokenizer
         torch.cuda.empty_cache()
@@ -115,17 +116,7 @@ def feed_forward(model_name, prompts, output_dir):
     else:
         raise ValueError("Model Name not supported/included")
     
-    # answer_file = os.path.join(output_dir, f"{model_name}_generated_output.json")
-    # os.makedirs(os.path.dirname(answer_file), exist_ok=True)
-    # with open(os.path.expanduser(answer_file), "a") as fout:
-    #     for idx, response in enumerate(responses):
-    #         ans_json = {
-    #             "raw_prompt": prompts[idx],
-    #             "model_id": model_id,
-    #             "generated": response,
-    #         }
-    #         fout.write(json.dumps(ans_json, ensure_ascii=False) + "\n")
-    # print(f"Complete {model_name}")
+    qa_pairs = zip(prompts, responses)
     
-    return responses
+    return qa_pairs
     
