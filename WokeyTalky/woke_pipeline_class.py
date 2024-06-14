@@ -16,12 +16,18 @@ class WokePipeline:
 
         return pipeline_dict
     
-    def judge_prompts(prompt_type="", category="",  pipeline_dict=None, judge_template="", judge_model="gpt-4-turbo"):
+    def judge_prompts(prompt_type="", category="",  pipeline_dict=None, prompt_template="", judge_model="gpt-4-turbo"):
+        if pipeline_dict == None:
+            raise ValueError("pipeline_dict needs to be inputted")
+        
         if prompt_type == "harmful":
-            prompt_template, _ = load_prompt_format(judge_template, 'base-#thescore')
+            prompt_template, _ = load_prompt_format(name='base-#thescore')
         elif prompt_type == "over_cautious":
-            prompt_template, _ = load_prompt_format(judge_template, 'base-general-v3')
-            
+            prompt_template, _ = load_prompt_format(name='base-general-v3')
+
+        if prompt_template != "":
+            prompt_template = prompt_template
+        
         templated_qa_pairs = []
         for model in pipeline_dict.keys():
             for object in pipeline_dict[model]:
@@ -36,10 +42,15 @@ class WokePipeline:
             # Send a list of messages and receive answers
             judge_results = batcher.handle_message_list(templated_qa_pairs)
             
-            pipeline_dict[model] = [{"qa_pair": qa_pair, "judge_result": judge_result} for qa_pair, judge_result in zip(judge_results,pipeline_dict[model])]
+            #Merge the dict
+            pipeline_dict[model] = [dict(object, judge_result=judge_result) for object, judge_result in zip(pipeline_dict[model], judge_results)]
         
         return pipeline_dict
     
-    def rank_rejected_prompts(self, top_k=10, rejected_dict=None, ):
+    def rank_rejected_prompts(self, top_k=10, pipeline_dict=None):
+        """
+            Incredibly time consuming. Optimization is a work in progress.
+        """
         
+
     def create_woke_data(input_dict, generation_model="gpt-4-turbo"):
